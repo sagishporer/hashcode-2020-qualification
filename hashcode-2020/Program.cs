@@ -81,6 +81,10 @@ namespace hashcode_2020
                     booksInLibrary.RemoveAt(0);
                 }
 
+                // Decrease book number of copies (one library removed)
+                foreach (Book book in library.Books)
+                    book.NumberOfLibraries--;
+
                 // Add only library with scanned books to output
                 if (booksScannedInLibrary.Count == 0)
                     continue;

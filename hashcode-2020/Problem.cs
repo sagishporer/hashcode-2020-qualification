@@ -74,7 +74,9 @@ namespace hashcode_2020
                     for (int b = 0; b < booksInLib; b++)
                     {
                         int bookId = int.Parse(parts[b]);
-                        booksInLibrary.Add(booksById[bookId]);
+                        Book book = booksById[bookId];
+                        book.NumberOfLibraries++;
+                        booksInLibrary.Add(book);
                     }
 
                     Library lib = new Library(l, daysToSign, booksPerDay, booksInLibrary);
