@@ -51,7 +51,7 @@ namespace hashcode_2020
                     continue;
                 }
 
-                score += Books[i].Score;
+                score += Books[i].Score / Books[i].NumberOfLibraries;
                 BooksInScore++;
             }
 

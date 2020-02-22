@@ -22,13 +22,27 @@ namespace hashcode_2020
         {
             DateTime startTime = DateTime.Now;
 
-            foreach (string fileName in INPUT_FILES)
-                Solve(fileName);
+            int bestMod = 0;
+            int max = 0;
+
+            //for (int mod = 1; mod < 1000; mod++)
+            int mod = 34;
+                foreach (string fileName in INPUT_FILES)
+                {
+                    int res = Solve(fileName, mod);
+                    if (res > max)
+                    {
+                        max = res;
+                        bestMod = mod;
+                    }
+                }
+
+            Console.WriteLine("Best: {0}, Mod: {1}", max, bestMod);
 
             Console.WriteLine("Run time: {0}", new TimeSpan(DateTime.Now.Ticks - startTime.Ticks));
         }
 
-        static int Solve(string fileName)
+        static int Solve(string fileName, int recalcScoreMod)
         {
             // Best for D (with internal re-sort)
             //Func<Library, int> orderByFunc = (o => o.LibraryScore);
@@ -94,7 +108,7 @@ namespace hashcode_2020
                 output.Add(library);
 
                 // Remove book from all libraries after scanning          
-                //if (libraries.Count % 881 == 0)
+                if (libraries.Count % recalcScoreMod == 0)
                 {
                     foreach (Library lib in libraries)
                         lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
