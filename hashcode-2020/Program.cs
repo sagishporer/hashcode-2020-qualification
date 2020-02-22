@@ -90,20 +90,13 @@ namespace hashcode_2020
                 output.Add(library);
 
                 // Remove book from all libraries after scanning          
-                /*
                 if (libraries.Count % 4 == 0)
                 {
                     foreach (Library lib in libraries)
                         lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
 
                     libraries = libraries.OrderByDescending(orderByFunc).ToList();
-                }
-                */
-                    
-                foreach (Library lib in libraries)
-                    lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
-
-                libraries = libraries.OrderByDescending(o => ((float)o.LibraryScore / o.DaysToSign)).ToList();
+                }                
             }
 
             Console.WriteLine("{0}, score: {1}", fileName, CalculateScore(output));
