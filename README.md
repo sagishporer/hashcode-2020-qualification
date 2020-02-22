@@ -8,7 +8,7 @@ Result:
 - E: 5061477
 - F: 5318970
 
-**General algorithm**
+**Greedy algorithm**
 1. Load the dataset.
 2. Calculate the score possible for each library (e.g. if sign-in start at current position)
 3. Reverse sort by: Score / DaysToSign
