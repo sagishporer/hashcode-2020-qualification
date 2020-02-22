@@ -59,7 +59,7 @@ namespace hashcode_2020
             FreeDaysInScore = days - daysToProcess;
 
             // Work for C,E
-            //if (BooksInScore == mBooks.Count)
+            //if (BooksInScore == Books.Count)
             //    score = (int)(0.20 * score);
 
             // Works for F
