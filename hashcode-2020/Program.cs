@@ -90,7 +90,7 @@ namespace hashcode_2020
                 output.Add(library);
 
                 // Remove book from all libraries after scanning          
-                if (libraries.Count % 881 == 0)
+                //if (libraries.Count % 881 == 0)
                 {
                     foreach (Library lib in libraries)
                         lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
