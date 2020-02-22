@@ -28,7 +28,7 @@ namespace hashcode_2020
             Console.WriteLine("Run time: {0}", new TimeSpan(DateTime.Now.Ticks - startTime.Ticks));
         }
 
-        static void Solve(string fileName)
+        static int Solve(string fileName)
         {
             // Best for D (with internal re-sort)
             //Func<Library, int> orderByFunc = (o => o.LibraryScore);
@@ -90,7 +90,7 @@ namespace hashcode_2020
                 output.Add(library);
 
                 // Remove book from all libraries after scanning          
-                if (libraries.Count % 4 == 0)
+                if (libraries.Count % 41 == 0)
                 {
                     foreach (Library lib in libraries)
                         lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
@@ -115,6 +115,8 @@ namespace hashcode_2020
                     sw.WriteLine();
                 }
             }
+
+            return CalculateScore(output);
         }
 
         static int CalculateScore(List<Library> libs)
