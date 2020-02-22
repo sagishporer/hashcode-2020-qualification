@@ -60,6 +60,8 @@ namespace hashcode_2020
                 int daysForScanning = p.Days - (nextSignDay + library.DaysToSign);
                 List<Book> booksInLibrary = library.Books.OrderByDescending(o => o.Score).ToList();
                 List<Book> booksScannedInLibrary = new List<Book>();
+
+                // Scan books in library
                 for (int b = 0; b < (daysForScanning * library.BooksPerDay); b++)
                 {
                     while (booksInLibrary.Count > 0)
@@ -79,28 +81,29 @@ namespace hashcode_2020
                     booksInLibrary.RemoveAt(0);
                 }
 
-                if (booksScannedInLibrary.Count > 0)
+                // Add only library with scanned books to output
+                if (booksScannedInLibrary.Count == 0)
+                    continue;
+
+                nextSignDay += library.DaysToSign;
+                library.ScannedBooks = booksScannedInLibrary;
+                output.Add(library);
+
+                // Remove book from all libraries after scanning          
+                /*
+                if (libraries.Count % 4 == 0)
                 {
-                    nextSignDay += library.DaysToSign;
-                    library.ScannedBooks = booksScannedInLibrary;
-                    output.Add(library);
-
-                    // Remove book from all libraries after scanning          
-                    /*
-                    if (libraries.Count % 4 == 0)
-                    {
-                        foreach (Library lib in libraries)
-                            lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
-
-                        libraries = libraries.OrderByDescending(orderByFunc).ToList();
-                    }
-                    */
-                    
                     foreach (Library lib in libraries)
                         lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
 
-                    libraries = libraries.OrderByDescending(o => ((float)o.LibraryScore / o.DaysToSign)).ToList();
+                    libraries = libraries.OrderByDescending(orderByFunc).ToList();
                 }
+                */
+                    
+                foreach (Library lib in libraries)
+                    lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
+
+                libraries = libraries.OrderByDescending(o => ((float)o.LibraryScore / o.DaysToSign)).ToList();
             }
 
             Console.WriteLine("{0}, score: {1}", fileName, CalculateScore(output));
