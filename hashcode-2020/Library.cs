@@ -60,11 +60,6 @@ namespace hashcode_2020
             int daysToProcess = ((BooksInScore - 1) / BooksPerDay) + 1;
             FreeDaysInScore = days - daysToProcess;
 
-            // Work for C,E
-            //if (BooksInScore == Books.Count)
-            //    score = (int)(0.20 * score);
-
-            // Works for F
             if (BooksInScore == Books.Count)
                 score = (int)(0.85 * score);
 
