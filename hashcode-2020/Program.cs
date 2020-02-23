@@ -62,6 +62,7 @@ namespace hashcode_2020
                 List<Book> booksScannedInLibrary = new List<Book>();
 
                 // Scan books in library
+                library.ScanCapacity = daysForScanning * library.BooksPerDay;
                 for (int b = 0; b < (daysForScanning * library.BooksPerDay); b++)
                 {
                     while (booksInLibrary.Count > 0)
