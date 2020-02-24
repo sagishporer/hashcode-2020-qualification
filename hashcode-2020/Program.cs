@@ -45,7 +45,7 @@ namespace hashcode_2020
                 if (nextSignDay >= p.Days)
                     break;
 
-                if (libraries.Count % libScoreRecalcMod == 0)
+                if ((libraries.Count % libScoreRecalcMod == 0)||(nextSignDay == 0))
                 {
                     foreach (Library lib in libraries)
                         lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
