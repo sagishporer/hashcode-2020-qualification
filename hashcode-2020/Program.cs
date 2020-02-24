@@ -30,17 +30,11 @@ namespace hashcode_2020
 
         static int Solve(string fileName, int libScoreRecalcMod)
         {
-            // Best for D (with internal re-sort)
-            //Func<Library, int> orderByFunc = (o => o.LibraryScore);
-
-            // Best for A,B,C (with resorting),E (with resorting),F (with resorting)            
-            Func<Library, float> orderByFunc = o => ((float)o.LibraryScore / o.DaysToSign);
-
             Problem p = Problem.LoadFile(fileName);
             int upperBound = p.Books.Sum(o => o.Score);
             Console.WriteLine("{0}, Score upper bound: {1}", fileName, upperBound);
 
-            List<Library> libraries = p.Libraries.OrderByDescending(orderByFunc).ToList();
+            List<Library> libraries = p.Libraries;
 
             int nextSignDay = 0;
             Dictionary<int, Book> booksScanned = new Dictionary<int, Book>();
@@ -50,6 +44,14 @@ namespace hashcode_2020
             {
                 if (nextSignDay >= p.Days)
                     break;
+
+                if (libraries.Count % libScoreRecalcMod == 0)
+                {
+                    foreach (Library lib in libraries)
+                        lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
+
+                    libraries = libraries.OrderByDescending(o => (float)o.LibraryScore / o.DaysToSign).ToList();
+                }
 
                 Library library = libraries[0];
                 libraries.RemoveAt(0);
@@ -92,15 +94,6 @@ namespace hashcode_2020
                 nextSignDay += library.DaysToSign;
                 library.ScannedBooks = booksScannedInLibrary;
                 output.Add(library);
-
-                // Remove book from all libraries after scanning          
-                if (libraries.Count % libScoreRecalcMod == 0)
-                {
-                    foreach (Library lib in libraries)
-                        lib.RecalcScoreWithDays(p.Days - nextSignDay - lib.DaysToSign);
-
-                    libraries = libraries.OrderByDescending(orderByFunc).ToList();
-                }                
             }
 
             Console.WriteLine("{0}, score: {1}", fileName, CalculateScore(output));
