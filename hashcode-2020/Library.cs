@@ -14,9 +14,7 @@ namespace hashcode_2020
         public int BooksInScore { get; private set; }
         public int FreeDaysInScore { get; private set; }
 
-        public int ScanCapacity { get; set; }
         public List<Book> ScannedBooks { get; set; }
-        public int FreeScanCapacity {  get { return ScanCapacity - ScannedBooks.Count; } }
 
         public Library(int id, int daysToSign, int booksPerDay, List<Book> books)
         {
